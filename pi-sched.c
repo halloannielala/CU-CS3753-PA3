@@ -22,6 +22,7 @@
 #define DEFAULT_ITERATIONS 1000000
 #define RADIUS (RAND_MAX / 2)
 #define DEFAULT_NUM_PROCESSES 1
+#define MAX_NUM_PROCESSES 1000
 
 inline double dist(double x0, double y0, double x1, double y1){
     return sqrt(pow((x1-x0),2) + pow((y1-y0),2));
@@ -81,14 +82,14 @@ int main(int argc, char* argv[]){
     	    exit(EXIT_FAILURE);
     	}
     }
-
+    /*Set number of processes*/
     if(argc > 3){
         num_processes = atoi(argv[3]);
         if(num_processes < 1){
             fprintf(stderr, "Bad number of processes value\n");
             exit(EXIT_FAILURE);
         }
-        else if(num_processes > 1000){
+        else if(num_processes > MAX_NUM_PROCESSES){
             fprintf(stderr, "Bad number of processes value\n");
             exit(EXIT_FAILURE);
         }
@@ -136,10 +137,9 @@ int main(int argc, char* argv[]){
             break;
         }
     }
+    /*Wait for children to finish*/
     while ((wait_pid = wait(&status)) > 0){
-        printf("Exit status of %d was %d (%s)\n", (int)wait_pid, status,
-               (status > 0) ? "accept" : "reject");
-
+        printf("Exit status of %d was %d \n", (int)wait_pid, status);
     }
 
     return 0;
