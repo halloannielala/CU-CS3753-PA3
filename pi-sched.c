@@ -16,6 +16,8 @@
 #include <math.h>
 #include <errno.h>
 #include <sched.h>
+#include <sys/wait.h>
+#include <unistd.h>
 
 #define DEFAULT_ITERATIONS 1000000
 #define RADIUS (RAND_MAX / 2)
@@ -104,22 +106,41 @@ int main(int argc, char* argv[]){
     }
     fprintf(stdout, "New Scheduling Policy: %d\n", sched_getscheduler(0));
 
-    /* Calculate pi using statistical methode across all iterations*/
-    for(i=0; i<iterations; i++){
-    	x = (random() % (RADIUS * 2)) - RADIUS;
-    	y = (random() % (RADIUS * 2)) - RADIUS;
-    	if(zeroDist(x,y) < RADIUS){
-    	    inCircle++;
-    	}
-    	inSquare++;
+    /*Fork the correct number of children*/
+    pid_t wait_pid, child_pid;
+    int status = 0;
+
+    int j;
+    for(j = 0; j < num_processes; j++){
+        if((child_pid = fork()) < 0){ /* an error occured*/
+            fprintf(stderr, "Fork failed\n");
+            exit(EXIT_FAILURE);
+        }else if(child_pid == 0){ /* Child process */
+        /* Calculate pi using statistical methode across all iterations*/
+            for(i=0; i<iterations; i++){
+                x = (random() % (RADIUS * 2)) - RADIUS;
+                y = (random() % (RADIUS * 2)) - RADIUS;
+                if(zeroDist(x,y) < RADIUS){
+                    inCircle++;
+                }
+                inSquare++;
+            }
+
+            /* Finish calculation */
+            pCircle = inCircle/inSquare;
+            piCalc = pCircle * 4.0;
+
+            /* Print result */
+            fprintf(stdout, "pi = %f\n", piCalc);
+            fprintf(stdout, "process: %d, parent: %d\n", getpid(), getppid());
+            break;
+        }
     }
+    while ((wait_pid = wait(&status)) > 0){
+        printf("Exit status of %d was %d (%s)\n", (int)wait_pid, status,
+               (status > 0) ? "accept" : "reject");
 
-    /* Finish calculation */
-    pCircle = inCircle/inSquare;
-    piCalc = pCircle * 4.0;
-
-    /* Print result */
-    fprintf(stdout, "pi = %f\n", piCalc);
+    }
 
     return 0;
 }
