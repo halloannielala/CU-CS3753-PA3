@@ -41,8 +41,10 @@ rw:
  ./rw
  ./rw <#Bytes to Write to Output File>
  ./rw <#Bytes to Write to Output File> <Block Size>
- ./rw <#Bytes to Write to Output File> <Block Size> <Input Filename>
- ./rw <#Bytes to Write to Output File> <Block Size> <Input Filename> <Output Filename>
+ ./rw <#Bytes to Write to Output File> <Block Size> <Num Processes>
+ ./rw <#Bytes to Write to Output File> <Block Size> <Num Processes> <Scheduling Policy>
+ ./rw <#Bytes to Write to Output File> <Block Size> <Num Processes> <Scheduling Policy> <Input Filename>
+ ./rw <#Bytes to Write to Output File> <Block Size> <Num Processes> <Scheduling Policy> <Input Filename> <Output Filename>
 
 testscript:
  ./testscript

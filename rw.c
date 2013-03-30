@@ -7,6 +7,8 @@
  * Description: A small i/o bound program to copy N bytes from an input
  *              file to an output file. May read the input file multiple
  *              times if N is larger than the size of the input file.
+
+ run with ./rw <blocksize> <
  */
 
 /* Include Flags */
@@ -32,8 +34,8 @@
 #define DEFAULT_BLOCKSIZE 1024
 #define DEFAULT_TRANSFERSIZE 1024*100
 
-#define MAX_ORDER_OF_PROCESSES 3
-#define MAX_NUM_PROCESSES 10*MAX_ORDER_OF_PROCESSES - 1
+// #define MAX_ORDER_OF_PROCESSES 3
+#define MAX_NUM_PROCESSES 999
 #define DEFAULT_NUM_PROCESSES 1
 
 int main(int argc, char* argv[]){
@@ -95,7 +97,10 @@ int main(int argc, char* argv[]){
     	}
     }else{
     	num_processes = atoi(argv[3]);
-    	if(num_processes > MAX_NUM_PROCESSES || num_processes < 1){
+    	if(num_processes > MAX_NUM_PROCESSES){
+    		fprintf(stderr, "Invalid number of processes %d\n", MAX_NUM_PROCESSES);
+    		exit(EXIT_FAILURE);
+    	}else if(num_processes < 1){
     		fprintf(stderr, "Invalid number of processes\n");
     		exit(EXIT_FAILURE);
     	}
@@ -104,7 +109,7 @@ int main(int argc, char* argv[]){
     /* Set policy if supplied */
     if(argc < 5){
     	fprintf(stderr, "No scheduling policy provided\n");
-    	exit(EXIT_FAILURE);
+    	//exit(EXIT_FAILURE);
     }else{
     	if(!strcmp(argv[4], "SCHED_OTHER")){
     	    policy = SCHED_OTHER;
@@ -190,25 +195,8 @@ int main(int argc, char* argv[]){
 				perror("Failed to allocate transfer buffer");
 				exit(EXIT_FAILURE);
 		    }
-		    /* Append loop number to filenames */
-		    printf("inputFilename %s outputFilename %s\n", inputFilename, outputFilename);
-		    //char iterationNumber[3];
-		    int z = 0;
-		    for(z = 0; z < MAX_ORDER_OF_PROCESSES; z++){
-		    	int temp0 = j/(pow(10,z));
-		    	int temp1 = j/(pow(10,(z+1)));
-		    	temp1 = temp1*10;
-		    	int digit = temp0 - temp1;
-		    	inputFilename[z+strlen(inputFilename)] = (char)(((int)'0')+(digit));
-		    	outputFilename[z+strlen(outputFilename)] = (char)(((int)'0')+(digit));
-		    }
-		    inputFilename[strlen(inputFilename)+MAX_ORDER_OF_PROCESSES] = '\0';
-		    outputFilename[strlen(outputFilename)+MAX_ORDER_OF_PROCESSES] = '\0';
-		    printf("inputFilename %s outputFilename %s\n", inputFilename, outputFilename);
-
-
-		    inputFilename[strlen(inputFilename)] = (char)(((int)'0')+j);
-		    inputFilename[strlen(inputFilename)+1] = '\0';
+		    
+		    
 		    /* Open Input File Descriptor in Read Only mode */
 		    if((inputFD = open(inputFilename, O_RDONLY | O_SYNC)) < 0){
 				perror("Failed to open input file");
