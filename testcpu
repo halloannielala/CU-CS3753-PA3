@@ -1,0 +1,53 @@
+#/!/bin/bash
+
+#File: testcpu
+#Author: Anne Gatchell
+#Modified code from Andy Saylor
+#Project: CSCI 3753 Programming Assignment 3
+#Modified: March 2013
+#Description:
+#	A simple bash script to run each test case for CPU intensive 
+#	processes
+
+ITERATIONS=100000000
+BYTESTOCOPY=102400
+BLOCKSIZE=1024
+TIMEFORMAT="wall=%e user=%U system=%S CPU=%P i-switched=%c v-switched=%w"
+MAKE="make -s"
+LOW=5
+MEDIUM=50
+HIGH=200
+
+echo Building code...
+$MAKE clean
+$MAKE
+
+echo Starting test runs...
+	
+echo Calculating pi over $ITERATIONS iterations using SCHED_OTHER with $LOW simultaneous processes...
+/usr/bin/time -f "$TIMEFORMAT" ./pi-sched $ITERATIONS SCHED_OTHER $LOW > /dev/null
+
+echo Calculating pi over $ITERATIONS iterations using SCHED_FIFO with $LOW simultaneous processes...
+/usr/bin/time -f "$TIMEFORMAT" sudo ./pi-sched $ITERATIONS SCHED_FIFO $LOW > /dev/null
+
+echo Calculating pi over $ITERATIONS iterations using SCHED_RR with $LOW simultaneous processes...
+/usr/bin/time -f "$TIMEFORMAT" sudo ./pi-sched $ITERATIONS SCHED_RR $LOW > /dev/null
+
+echo Calculating pi over $ITERATIONS iterations using SCHED_OTHER with $MEDIUM simultaneous processes...
+/usr/bin/time -f "$TIMEFORMAT" ./pi-sched $ITERATIONS SCHED_OTHER $MEDIUM> /dev/null
+
+echo Calculating pi over $ITERATIONS iterations using SCHED_FIFO with $MEDIUM simultaneous processes...
+/usr/bin/time -f "$TIMEFORMAT" sudo ./pi-sched $ITERATIONS SCHED_FIFO $MEDIUM> /dev/null
+
+echo Calculating pi over $ITERATIONS iterations using SCHED_RR with $MEDUIM simultaneous processes...
+/usr/bin/time -f "$TIMEFORMAT" sudo ./pi-sched $ITERATIONS SCHED_RR $MEDIUM> /dev/null
+
+echo Calculating pi over $ITERATIONS iterations using SCHED_OTHER with $HIGH simultaneous processes...
+/usr/bin/time -f "$TIMEFORMAT" ./pi-sched $ITERATIONS SCHED_OTHER $HIGH> /dev/null
+
+echo Calculating pi over $ITERATIONS iterations using SCHED_FIFO with $HIGH simultaneous processes...
+/usr/bin/time -f "$TIMEFORMAT" sudo ./pi-sched $ITERATIONS SCHED_FIFO $HIGH> /dev/null
+
+echo Calculating pi over $ITERATIONS iterations using SCHED_RR with $HIGH simultaneous process...
+/usr/bin/time -f "$TIMEFORMAT" sudo ./pi-sched $ITERATIONS SCHED_RR $HIGH> /dev/null
+

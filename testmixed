@@ -1,15 +1,15 @@
 #/!/bin/bash
 
-#File: testscript
-#Author: Andy Sayler
+#File: testmixed
+#Author: Anne Gatchell
+#Modified code from Andy Saylor
 #Project: CSCI 3753 Programming Assignment 3
-#Create Date: 2012/03/09
-#Modify Date: 2012/03/21
+#Modified: March 2013
 #Description:
-#	A simple bash script to run a signle copy of each test case
-#	and gather the relevent data.
+#	A simple bash script to run each test case for mixed CPU 
+#	- I/O intensive processes
 
-ITERATIONS=100000000
+ITERATIONS=10000
 BYTESTOCOPY=102400
 BLOCKSIZE=1024
 TIMEFORMAT="wall=%e user=%U system=%S CPU=%P i-switched=%c v-switched=%w"
@@ -24,30 +24,30 @@ $MAKE
 
 echo Starting test runs...
 
-echo Copying $BYTESTOCOPY bytes in blocks of $BLOCKSIZE from rwinput to rwoutput
+echo calculating pi for $ITERATIONS iterations and writing to file each time rwinput to rwoutput
 echo using SCHED_OTHER with $LOW simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $LOW SCHED_OTHER > /dev/null
+/usr/bin/time -f "$TIMEFORMAT" sudo ./mixed $BYTESTOCOPY $BLOCKSIZE $LOW SCHED_OTHER $ITERATIONS > /dev/null
 
 echo using SCHED_FIFO with $LOW simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $LOW SCHED_FIFO > /dev/null
+/usr/bin/time -f "$TIMEFORMAT" sudo ./mixed $BYTESTOCOPY $BLOCKSIZE $LOW SCHED_FIFO $ITERATIONS > /dev/null
 
 echo using SCHED_RR with $LOW simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $LOW SCHED_RR > /dev/null
+/usr/bin/time -f "$TIMEFORMAT" sudo ./mixed $BYTESTOCOPY $BLOCKSIZE $LOW SCHED_RR $ITERATIONS > /dev/null
 
 echo using SCHED_OTHER with $MEDIUM simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $MEDIUM SCHED_OTHER > /dev/null
+/usr/bin/time -f "$TIMEFORMAT" sudo ./mixed $BYTESTOCOPY $BLOCKSIZE $MEDIUM SCHED_OTHER $ITERATIONS > /dev/null
 
 echo using SCHED_FIFO with $MEDIUM simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $MEDIUM SCHED_FIFO > /dev/null
+/usr/bin/time -f "$TIMEFORMAT" sudo ./mixed $BYTESTOCOPY $BLOCKSIZE $MEDIUM SCHED_FIFO $ITERATIONS > /dev/null
 
 echo using SCHED_RR with $MEDIUM simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $MEDIUM SCHED_RR > /dev/null
+/usr/bin/time -f "$TIMEFORMAT" sudo ./mixed $BYTESTOCOPY $BLOCKSIZE $MEDIUM SCHED_RR $ITERATIONS > /dev/null
 
 echo using SCHED_OTHER with $HIGH simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $HIGH SCHED_OTHER > /dev/null
+/usr/bin/time -f "$TIMEFORMAT" sudo ./mixed $BYTESTOCOPY $BLOCKSIZE $HIGH SCHED_OTHER $ITERATIONS > /dev/null
 
 echo using SCHED_FIFO with $HIGH simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $HIGH SCHED_FIFO > /dev/null
+/usr/bin/time -f "$TIMEFORMAT" sudo ./mixed $BYTESTOCOPY $BLOCKSIZE $HIGH SCHED_FIFO $ITERATIONS > /dev/null
 
 echo using SCHED_RR with $HIGH simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $HIGH SCHED_RR > /dev/null
+/usr/bin/time -f "$TIMEFORMAT" sudo ./mixed $BYTESTOCOPY $BLOCKSIZE $HIGH SCHED_RR $ITERATIONS > /dev/null

@@ -52,9 +52,7 @@ inline double zeroDist(double x, double y){
 int main(int argc, char* argv[]){
 
     int rv;
-    int inputFD;
     int outputFD;
-    char inputFilename[MAXFILENAMELENGTH];
     char outputFilename[MAXFILENAMELENGTH];
     char outputFilenameBase[MAXFILENAMELENGTH];
 
@@ -63,13 +61,9 @@ int main(int argc, char* argv[]){
     char* transferBuffer = NULL;
     ssize_t buffersize;
 
-    ssize_t bytesRead = 0;
-    ssize_t totalBytesRead = 0;
-    int totalReads = 0;
     ssize_t bytesWritten = 0;
     ssize_t totalBytesWritten = 0;
     int totalWrites = 0;
-    int inputFileResets = 0;
     int num_processes;
 
     int policy;
@@ -78,11 +72,9 @@ int main(int argc, char* argv[]){
     double x, y;
     double inCircle = 0.0;
     double inSquare = 0.0;
-    double pCircle = 0.0;
-    double piCalc = 0.0;
     long iterations;
     
-    //./mixed <transfer size>
+    //./mixed <transfer size><block size><num processes><policy><num iterantions><outputfilename>
 
     /* Process program arguments to select run-time parameters */
     /* Set supplied transfer size or default if not supplied */
@@ -236,7 +228,8 @@ int main(int argc, char* argv[]){
 		    /* Print Status */
 		    fprintf(stdout, "Writing to %s\n", outputFilename);
 
-		    /* Read from input file and write to output file*/
+		    /* Do an iteration of pi calc, and then write some 
+		    bogus stuff to file*/
 		    int i;
 		    for(i=0; i<iterations; i++){
 				x = (random() % (RADIUS * 2)) - RADIUS;

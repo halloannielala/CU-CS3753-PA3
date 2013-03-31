@@ -6,17 +6,7 @@
 #Create Date: 2012/03/09
 #Modify Date: 2012/03/21
 #Description:
-#	A simple bash script to run a signle copy of each test case
-#	and gather the relevent data.
-
-ITERATIONS=100000000
-BYTESTOCOPY=102400
-BLOCKSIZE=1024
-TIMEFORMAT="wall=%e user=%U system=%S CPU=%P i-switched=%c v-switched=%w"
-MAKE="make -s"
-LOW=5
-MEDIUM=50
-HIGH=200
+#	A simple bash script to run all the 27 test cases once
 
 echo Building code...
 $MAKE clean
@@ -24,86 +14,9 @@ $MAKE
 
 echo Starting test runs...
 
-echo Calculating pi over $ITERATIONS iterations using SCHED_OTHER with $LOW simultaneous processes...
-/usr/bin/time -f "$TIMEFORMAT" ./pi-sched $ITERATIONS SCHED_OTHER $LOW > /dev/null
-
-echo Calculating pi over $ITERATIONS iterations using SCHED_FIFO with $LOW simultaneous processes...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./pi-sched $ITERATIONS SCHED_FIFO $LOW > /dev/null
-
-echo Calculating pi over $ITERATIONS iterations using SCHED_RR with $LOW simultaneous processes...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./pi-sched $ITERATIONS SCHED_RR $LOW > /dev/null
-
-echo Calculating pi over $ITERATIONS iterations using SCHED_OTHER with $MEDIUM simultaneous processes...
-/usr/bin/time -f "$TIMEFORMAT" ./pi-sched $ITERATIONS SCHED_OTHER $MEDIUM> /dev/null
-
-echo Calculating pi over $ITERATIONS iterations using SCHED_FIFO with $MEDIUM simultaneous processes...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./pi-sched $ITERATIONS SCHED_FIFO $MEDIUM> /dev/null
-
-echo Calculating pi over $ITERATIONS iterations using SCHED_RR with $MEDUIM simultaneous processes...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./pi-sched $ITERATIONS SCHED_RR $MEDIUM> /dev/null
-
-echo Calculating pi over $ITERATIONS iterations using SCHED_OTHER with $HIGH simultaneous processes...
-/usr/bin/time -f "$TIMEFORMAT" ./pi-sched $ITERATIONS SCHED_OTHER $HIGH> /dev/null
-
-echo Calculating pi over $ITERATIONS iterations using SCHED_FIFO with $HIGH simultaneous processes...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./pi-sched $ITERATIONS SCHED_FIFO $HIGH> /dev/null
-
-echo Calculating pi over $ITERATIONS iterations using SCHED_RR with $HIGH simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./pi-sched $ITERATIONS SCHED_RR $HIGH> /dev/null
-
-echo Copying $BYTESTOCOPY bytes in blocks of $BLOCKSIZE from rwinput to rwoutput
-echo using SCHED_OTHER with $LOW simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $LOW SCHED_OTHER > /dev/null
-
-echo using SCHED_FIFO with $LOW simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $LOW SCHED_FIFO > /dev/null
-
-echo using SCHED_RR with $LOW simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $LOW SCHED_RR > /dev/null
-
-echo using SCHED_OTHER with $MEDIUM simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $MEDIUM SCHED_OTHER > /dev/null
-
-echo using SCHED_FIFO with $MEDIUM simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $MEDIUM SCHED_FIFO > /dev/null
-
-echo using SCHED_RR with $MEDIUM simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $MEDIUM SCHED_RR > /dev/null
-
-echo using SCHED_OTHER with $HIGH simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $HIGH SCHED_OTHER > /dev/null
-
-echo using SCHED_FIFO with $HIGH simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $HIGH SCHED_FIFO > /dev/null
-
-echo using SCHED_RR with $HIGH simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $HIGH SCHED_RR > /dev/null
-
-#---------------------------------------------
-echo Copying $BYTESTOCOPY bytes in blocks of $BLOCKSIZE from rwinput to rwoutput
-echo using SCHED_OTHER with $LOW simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $LOW SCHED_OTHER > /dev/null
-
-echo using SCHED_FIFO with $LOW simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $LOW SCHED_FIFO > /dev/null
-
-echo using SCHED_RR with $LOW simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $LOW SCHED_RR > /dev/null
-
-echo using SCHED_OTHER with $MEDIUM simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $MEDIUM SCHED_OTHER > /dev/null
-
-echo using SCHED_FIFO with $MEDIUM simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $MEDIUM SCHED_FIFO > /dev/null
-
-echo using SCHED_RR with $MEDIUM simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $MEDIUM SCHED_RR > /dev/null
-
-echo using SCHED_OTHER with $HIGH simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $HIGH SCHED_OTHER > /dev/null
-
-echo using SCHED_FIFO with $HIGH simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $HIGH SCHED_FIFO > /dev/null
-
-echo using SCHED_RR with $HIGH simultaneous process...
-/usr/bin/time -f "$TIMEFORMAT" sudo ./rw $BYTESTOCOPY $BLOCKSIZE $HIGH SCHED_RR > /dev/null
+echo CPU INTENSIVE------	
+./testcpu
+echo I/O INTENSIVE------
+./testinput
+echo Mixed CPU I/O------
+./testmixed

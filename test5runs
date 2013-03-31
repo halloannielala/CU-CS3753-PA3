@@ -1,0 +1,30 @@
+#/!/bin/bash
+
+#File: test5runs
+#Author: Anne Gatchell
+#Project: CSCI 3753 Programming Assignment 3
+#Create Date: 2013/03/30
+#Modify Date: 2013/03/30
+#Description:
+#	A simple bash script to run all the 27 test cases once
+
+echo Building code...
+$MAKE clean
+$MAKE
+
+echo Starting test runs...
+
+echo Run 1 ----------------------------------------------
+./testscript
+echo ---------------------------------------------------
+echo Run 2 ---------------------------------------------
+./testscript
+echo ---------------------------------------------------
+echo Run 3 ---------------------------------------------
+./testscript
+echo ---------------------------------------------------
+echo Run 4 ---------------------------------------------
+./testscript
+echo ---------------------------------------------------
+echo Run 5 ---------------------------------------------
+echo ----------------------------------------------------

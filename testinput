@@ -1,13 +1,13 @@
 #/!/bin/bash
 
-#File: testscript
-#Author: Andy Sayler
+#File: testcpu
+#Author: Anne Gatchell
+#Modified code from Andy Saylor
 #Project: CSCI 3753 Programming Assignment 3
-#Create Date: 2012/03/09
-#Modify Date: 2012/03/21
+#Modified: March 2013
 #Description:
-#	A simple bash script to run a signle copy of each test case
-#	and gather the relevent data.
+#	A simple bash script to run each test case for I/O intensive 
+#	processes
 
 ITERATIONS=100000000
 BYTESTOCOPY=102400
