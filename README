@@ -2,23 +2,28 @@ CS3753 (Operating Systems)
 Spring 2013
 University of Colorado Boulder
 Programming Assignment 3
-Public Code
 
-By Andy Sayler - 2012
-http://www.andysayler.com
+By Anne Gatchell
+2013
 
-With help from:
-Junho Ahn - 2012
+Modified Code from Andy Saylor and
+Junho Ahn 2012
 
 ---Folders---
-handout - Assignment description and documentation
+report
 
 ---Executables---
-./testscript - A simple bash script for running a few sample test cases
+./test5runs - A simple bash script to run all the 27 test cases 5 times
+./testscript - A simple bash script to run all the 27 test cases once
+./testcpu - A simple bash script to run each test case for CPU bound processes
+./testinput - A simple bash script to run each test case for I/O bound processes
+./testmixed - A simple bash script to run each test case for mixed CPU - I/O intensive processes
 ./pi - A simple program for statistically calculating pi
-./pi-sched - A simple program for statistically calculating pi using
-             a specific scheduling policy
-./rw - A simple i/o bound example program.
+./pi-sched - A simple program for statistically calculating pi with a specifed number of processes
+		using a specific scheduling policy
+./rw - A simple i/o bound program that runs with a given number of processes and a specific
+		scheduling policy
+./mixed - 
 ./rr_quantum - A simple program for determing the RR quantum.
 
 ---Examples---

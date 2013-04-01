@@ -6,7 +6,8 @@
 #Create Date: 2013/03/30
 #Modify Date: 2013/03/30
 #Description:
-#	A simple bash script to run all the 27 test cases once
+#	A simple bash script to run all the 27 test cases 
+#	5 times
 
 echo Building code...
 $MAKE clean
