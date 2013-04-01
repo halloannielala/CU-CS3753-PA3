@@ -1,14 +1,15 @@
 /*
- * File: rw.c
- * Author: Andy Sayler
+ * File: pi-sched.c
+ * Author: Anne Gatchell
+ * Code based off of code by Andy Saylor
  * Project: CSCI 3753 Programming Assignment 3
- * Create Date: 2012/03/19
- * Modify Date: 2012/03/20
+ * Modify Date: 2013/03/31
  * Description: A small i/o bound program to copy N bytes from an input
  *              file to an output file. May read the input file multiple
  *              times if N is larger than the size of the input file.
 
- run with ./rw <blocksize> <
+ run with ./rw <#Bytes to Write to Output File> <Block Size> 
+ 					<Num Processes> <Scheduling Policy> <Input Filename>
  */
 
 /* Include Flags */

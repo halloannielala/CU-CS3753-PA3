@@ -1,10 +1,9 @@
 #/!/bin/bash
 
 #File: testscript
-#Author: Andy Sayler
+#Author: Anne Gatchell
 #Project: CSCI 3753 Programming Assignment 3
-#Create Date: 2012/03/09
-#Modify Date: 2012/03/21
+#Modify Date: 2013/03/31
 #Description:
 #	A simple bash script to run all the 27 test cases once
 

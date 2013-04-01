@@ -38,21 +38,28 @@ pi:
  ./pi <Number of Iterations>
 
 pi-sched:
- ./pi-sched
- ./pi-sched <Number of Iterations>
- ./pi-sched <Number of Iterations> <Scheduling Policy>
+ ./pi-sched <Number of Iterations> <Scheduling Policy> <Num Processes>
 
 rw:
- ./rw
- ./rw <#Bytes to Write to Output File>
- ./rw <#Bytes to Write to Output File> <Block Size>
- ./rw <#Bytes to Write to Output File> <Block Size> <Num Processes>
- ./rw <#Bytes to Write to Output File> <Block Size> <Num Processes> <Scheduling Policy>
  ./rw <#Bytes to Write to Output File> <Block Size> <Num Processes> <Scheduling Policy> <Input Filename>
- ./rw <#Bytes to Write to Output File> <Block Size> <Num Processes> <Scheduling Policy> <Input Filename> <Output Filename>
+
+mixed:
+ ./mixed <#Bytes to Write to Output File> <Block Size> <Num Processes> 
+                            <Scheduling Policy> <Number of Iterations>
+test5runs:
+ ./test5runs
 
 testscript:
  ./testscript
+
+testcpu:
+ ./testcpu
+
+testinput:
+ ./testinput
+
+testmixed:
+ ./testmixed
 
 rr_quantum:
  sudo ./rr_quantum

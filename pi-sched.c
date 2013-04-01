@@ -1,12 +1,14 @@
 /*
  * File: pi-sched.c
- * Author: Andy Sayler
+ * Author: Anne Gatchell
+ * Code based off of code by Andy Saylor
  * Project: CSCI 3753 Programming Assignment 3
- * Create Date: 2012/03/07
- * Modify Date: 2012/03/09
- * Description:
- * 	This file contains a simple program for statistically
- *      calculating pi using a specific scheduling policy.
+ * Modify Date: 2013/03/31
+ * Description: A program to statistically calculate pi and write
+                to an output file. A user determined number of process
+                all do this.
+
+ run with ./pi-sched <Number of Iterations> <Scheduling Policy> <Num Processes>
  */
 
 /* Local Includes */
