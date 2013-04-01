@@ -48,7 +48,7 @@ mixed.o: mixed.c
 	$(CC) $(CFLAGS) $<
 
 clean: testclean
-	rm -f pi pi-sched rw rr_quantum
+	rm -f pi pi-sched rw rr_quantum mixed
 	rm -f rwinput
 	rm -f *.o
 	rm -f *~
